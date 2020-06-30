@@ -1,0 +1,3 @@
+def login_required() -> None: ...
+
+# Placeholder stub.

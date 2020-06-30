@@ -1,4 +1,6 @@
-from django.http import HttpResponse, HttpResponseNotAllowed
+from typing import Any, Dict
+
+from django.http import HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.template.response import TemplateResponse
 from django.utils.decorators import classonlymethod
 
@@ -19,8 +21,10 @@ class View:
         "options",
         "trace",
     ]
+    kwargs = Dict[str, Any]
+    request: HttpRequest = None
     def __init__(self, **kwargs): ...
-    @classonlymethod
+    @classmethod
     def as_view(cls, **initkwargs): ...
     def setup(self, request, *args, **kwargs): ...
     def dispatch(self, request, *args, **kwargs): ...
@@ -30,7 +34,7 @@ class View:
     def options(self, request, *args, **kwargs) -> HttpResponse: ...
 
 class TemplateResponseMixin:
-    template_name = None
+    template_name: str = None
     template_engine = None
     response_class = TemplateResponse
     content_type = None
